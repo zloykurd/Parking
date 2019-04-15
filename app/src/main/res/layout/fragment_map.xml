@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context=".views.MapFragment">
+
+  <data>
+
+    <variable
+      name="handler"
+      type="ru.zkdev.parking.views.MapFragment.Handler" />
+  </data>
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+      android:id="@+id/map_view"
+      android:name="com.google.android.gms.maps.SupportMapFragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab_search_list"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_centerInParent="true"
+      android:layout_gravity="center|end"
+      android:layout_margin="@dimen/fab_margin"
+      android:onClick="@{handler::searchPirking}"
+      app:srcCompat="@drawable/ic_search" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab_parking_list"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/fab_search_list"
+      android:layout_alignParentRight="true"
+      android:layout_centerInParent="true"
+      android:layout_gravity="center|end"
+      android:layout_margin="@dimen/fab_margin"
+      android:layout_marginBottom="@dimen/fab_margin"
+      android:onClick="@{handler::getOnParkingListClick}"
+      app:srcCompat="@drawable/ic_list_white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab_my_location"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentBottom="true"
+      android:layout_gravity="bottom|end"
+      android:layout_margin="@dimen/fab_margin"
+      android:onClick="@{handler::onMyLocationClick}"
+      app:srcCompat="@android:drawable/ic_dialog_map" />
+
+  </RelativeLayout>
+
+</layout>

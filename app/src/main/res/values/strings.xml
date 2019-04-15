@@ -1,0 +1,35 @@
+<resources>
+  <string name="app_name">Parking</string>
+  <string name="title_activity_maps">Map</string>
+
+
+  <!--titles-->
+  <string name="title_toolbar_all">Все парковки</string>
+  <string name="title_toolbar_search">Свободные парковки</string>
+  <string name="title_toolbar_history">История</string>
+  <string name="title_delete">Удаление </string>
+  <string name="title_info">Информация:</string>
+  <string name="title_quantity_count">Свободных мест:</string>
+  <string name="title_max_quantity_count">Всего мест:</string>
+  <string name="title_geo_setting">Настройки подключения</string>
+  <string name="title_minut">%s минут</string>
+
+  <!--messages-->
+  <string name="message_delete">Удалить из истории? </string>
+  <string name="message_geo_setting">Необходимо подключить геолокацию. Перейти в настройки ?</string>
+  <string name="message_parking_is_full"> нет!</string>
+  <!--errors-->
+  <!--action names-->
+  <string name="disagree">Отмена</string>
+  <string name="agree">Ок</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="title_activity_test">TestActivity</string>
+  <string name="navigation_drawer_open">Open navigation drawer</string>
+  <string name="navigation_drawer_close">Close navigation drawer</string>
+  <string name="nav_header_title">Android Studio</string>
+  <string name="nav_header_subtitle">android.studio@android.com</string>
+  <string name="nav_header_desc">Navigation header</string>
+  <string name="action_settings">Settings</string>
+</resources>

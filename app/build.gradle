@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "ru.zkdev.parking"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    def libraryVersion = '1.0.0'
+    implementation "androidx.legacy:legacy-support-v4:$libraryVersion"
+    implementation "com.google.android.material:material:$libraryVersion"
+    implementation "androidx.legacy:legacy-support-v4:$libraryVersion"
+    implementation "androidx.cardview:cardview:$libraryVersion"
+    implementation "androidx.recyclerview:recyclerview:$libraryVersion"
+
+    /*settings*/
+    implementation 'androidx.multidex:multidex:2.0.0'
+
+    /*Images*/
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    /*lifecycle-components*/
+    def lifecycle_version = "2.0.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+
+    /*material Dialogs*/
+    def dialogVersion = '0.9.6.0'
+    implementation "com.afollestad.material-dialogs:core:$dialogVersion"
+    implementation "com.afollestad.material-dialogs:commons:$dialogVersion"
+
+    /*api client*/
+    def retrofitVersion = '2.4.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+    // GSON body parser
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    /*maps*/
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+}

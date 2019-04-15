@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <variable
+      name="item"
+      type="ru.zkdev.parking.viewModels.ParkingVM" />
+  </data>
+
+  <androidx.cardview.widget.CardView
+    android:id="@+id/picture_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="0dp"
+    android:padding="0dp"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <ImageView
+        android:id="@+id/picture_img"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="0dp"
+        android:background="@color/bg_card"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        tools:imageUrl="@{item.pictureUrl}" />
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="80dp"
+          android:contentDescription="@string/app_name"
+          app:srcCompat="@drawable/black_gradient" />
+
+        <TextView
+          android:id="@+id/parking_name_on_bottom_dialog"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="15dp"
+          android:hint="@string/app_name"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:text="@{item.parking.name}"
+
+          android:textColor="@color/txt_white"
+          android:textSize="20sp"
+          android:textStyle="bold" />
+
+        <LinearLayout
+          android:id="@+id/quantity"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="end|center"
+          android:orientation="horizontal"
+          android:paddingRight="10dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:text="@string/title_quantity_count"
+            android:textAppearance="@style/TextViewInfo" />
+
+
+          <TextView
+            android:id="@+id/tv_quantity_count_full_on_bottom_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_parking_is_full"
+            android:textAppearance="@style/TextViewInfo"
+            android:textColor="@color/txt_red"
+            android:visibility="@{item.parking.maxQuantity != item.parking.quantity ? View.GONE  : View.VISIBLE}" />
+
+
+          <TextView
+            android:id="@+id/tv_quantity_count_on_bottom_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(item.parking.maxQuantity-item.parking.quantity)}"
+            android:textAppearance="@style/TextViewInfo"
+            android:visibility="@{item.parking.maxQuantity == item.parking.quantity ? View.GONE  : View.VISIBLE}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/quantity"
+          android:gravity="end|center"
+          android:orientation="horizontal"
+          android:paddingRight="10dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:text="@string/title_max_quantity_count"
+            android:textAppearance="@style/TextViewInfo" />
+
+
+          <TextView
+            android:id="@+id/tv_max_quantity_count_on_bottom_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(item.parking.maxQuantity)}"
+            android:textAppearance="@style/TextViewInfo" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/parking_name_on_bottom_dialog"
+          android:gravity="bottom"
+          android:orientation="horizontal"
+          android:padding="10dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_info"
+            android:textColor="@color/txt_white" />
+
+          <TextView
+            android:id="@+id/rating_on_rating_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/app_name"
+            android:maxLength="100"
+            android:paddingLeft="5dp"
+            android:paddingRight="0dp"
+            android:text="@{item.parking.description}"
+            android:textColor="@color/txt_white" />
+
+        </LinearLayout>
+
+      </RelativeLayout>
+
+    </LinearLayout>
+
+  </androidx.cardview.widget.CardView>
+
+</layout>

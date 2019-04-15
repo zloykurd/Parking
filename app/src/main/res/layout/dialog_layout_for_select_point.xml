@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_gravity="center"
+  app:cardCornerRadius="10dp"
+  app:cardBackgroundColor="@color/txt_white"
+  app:cardElevation="0dp">
+
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+      android:textColor="@color/txt_black"
+      android:textSize="17sp"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/message_geo_setting" />
+
+  </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

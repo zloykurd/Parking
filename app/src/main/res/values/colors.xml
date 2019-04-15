@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--default-->
+  <color name="colorPrimary">#4A74F5</color>
+  <color name="colorPrimaryDark">#364497</color>
+  <color name="colorAccent">#4A74F5</color>
+  <color name="black_bradient">#121212</color>
+  <color name="black_transparent">#00000000</color>
+  <!--text-->
+  <color name="txt_black">#212121</color>
+  <color name="txt_red">#F80000</color>
+  <color name="txt_white">#ffffff</color>
+  <color name="txt_gray">#969696</color>
+  <color name="txt_primary">#4A74F5</color>
+
+  <!--background-->
+  <color name="bg_default">#FFEB3B</color>
+  <color name="bg_splash">#4A74F5</color>
+  <color name="bg_card">#e6e6e6</color>
+
+  <!--polyLines-->
+  <color name="line_green">#4CAF50</color>
+  <color name="line_pay">#673AB7</color>
+  <color name="line_have_place">#2196F3</color>
+  <color name="line_not_place">#F80000</color>
+
+
+
+
+</resources>
