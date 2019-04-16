@@ -107,7 +107,7 @@ public class WaitingService extends Service {
     Notification notification = new NotificationCompat.Builder(this, WEITING_SERVICE)
         .setContentTitle(getString(R.string.app_name))
         .setContentText("Парковка завершена " + " Время парковки " + total + " минут")
-        .setAutoCancel(false)
+        .setAutoCancel(true)
         .setSmallIcon(R.drawable.ic_local_parking_blue_24dp).setContentIntent(pendingIntent).build();
     startForeground(ID, notification);
     history.add(new ParkingHistory(random, poinPolygon.getName(), poinPolygon.getId(), total, getDate()));
@@ -175,6 +175,7 @@ public class WaitingService extends Service {
         }
         timer.scheduleAtFixedRate(new mainTask(), DEFAULT_WAIT, DEFAULT_PAY);
       } else {
+
         showComplitedNotification();
       }
     }

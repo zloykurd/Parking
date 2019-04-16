@@ -14,14 +14,18 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
+import java.util.Timer;
+
 import androidx.annotation.Nullable;
 import ru.zkdev.parking.R;
+
+import static ru.zkdev.parking.configs.Constants.LOCATION_UPDATE;
 
 public class LocationService extends Service implements LocationListener {
   private static final String TAG = "LocationService";
   private Context mContext;
   private String PROVIDER = "";
-
+  private int mStartMode = START_REDELIVER_INTENT;
   // flag for GPS status
   boolean isGPSEnabled = false;
 
@@ -47,6 +51,25 @@ public class LocationService extends Service implements LocationListener {
   public LocationService() {
   }
 
+
+  private void startService() {
+    Log.d(TAG, "startService: ");
+    getLocation();
+  }
+
+  @Override
+  public void onCreate() {
+    Log.d(TAG, "onCreate: ");
+    // The service is being created
+    startService();
+  }
+
+  @Override
+  public int onStartCommand(Intent intent, int flags, int startId) {
+    Log.d(TAG, "onStartCommand: ");
+    return mStartMode;
+  }
+
   public LocationService(Context context) {
     this.mContext = context;
     getLocation();
@@ -63,8 +86,9 @@ public class LocationService extends Service implements LocationListener {
     Log.d(TAG, "onLocationChanged: ");
     Log.d(TAG, "onLocationChanged: " + location.getLatitude());
     Log.d(TAG, "onLocationChanged: " + location.getLongitude());
-
-
+    Intent intent = new Intent(LOCATION_UPDATE);
+    intent.putExtra("coordinates", location.getLongitude() + " " + location.getLatitude());
+    mContext.sendBroadcast(intent);
   }
 
   @Override
@@ -86,6 +110,10 @@ public class LocationService extends Service implements LocationListener {
   @Override
   public void onProviderDisabled(String provider) {
     Log.d(TAG, "onProviderDisabled: ");
+
+    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
 
   }
 
@@ -227,5 +255,13 @@ public class LocationService extends Service implements LocationListener {
     });
     alertDialog.setNegativeButton(getString(R.string.disagree), (dialog, which) -> dialog.cancel());
     alertDialog.show();
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    if (locationManager != null) {
+      locationManager.removeUpdates(this);
+    }
   }
 }

@@ -1,8 +1,10 @@
 package ru.zkdev.parking.views;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -54,6 +56,7 @@ import ru.zkdev.parking.viewModels.ParkingVM;
 import ru.zkdev.parking.viewModels.PolygonVM;
 
 import static androidx.core.content.PermissionChecker.checkSelfPermission;
+import static ru.zkdev.parking.configs.Constants.LOCATION_UPDATE;
 import static ru.zkdev.parking.configs.Constants.MAIN_CONTAINER;
 import static ru.zkdev.parking.configs.Constants.VERIFY_PERMISSIONS_REQUEST;
 import static ru.zkdev.parking.configs.Permissions.PERMISSIONS;
@@ -68,6 +71,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
   private SupportMapFragment mapFragment;
   private GoogleMap mMap;
   private LocationService locationService;
+  private BroadcastReceiver receiver;
   private LatLng selectedLatLng = null;
   private List<Polygon> polygonList = new ArrayList<>();
   private BottomSheetDialog dialog = null;
@@ -91,6 +95,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
     vm = ViewModelProviders.of(getActivity()).get(PolygonVM.class);
     vm.init();
     locationService = new LocationService(getActivity());
+
   }
 
   @Override
@@ -102,13 +107,48 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
     binding.setHandler(new Handler());
     mapFragment.getMapAsync(this);
     initBottomMenu();
+    final Intent intent = new Intent(this.getActivity(), LocationService.class);
+    getActivity().startService(intent);
     return binding.getRoot();
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    receiveData();
+  }
+
+  private void receiveData() {
+    if (receiver == null) {
+      receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+          updateLocation();
+        }
+      };
+    }
+    getActivity().registerReceiver(receiver, new IntentFilter(LOCATION_UPDATE));
+  }
+
+  private void updateLocation() {
+    Log.d(TAG, "updateLocation: ");
+    LatLng latLng = new LatLng(locationService.getLocation().getLatitude(),
+        locationService.getLocation().getLongitude());
+    if (marker!=null )marker.remove();
+    marker = mMap.addMarker(new MarkerOptions().position(latLng));
   }
 
   @Override
   public void onStop() {
     locationService.stopUsingGPS();
     super.onStop();
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    if (receiver != null)
+      getActivity().unregisterReceiver(receiver);
   }
 
   @Nullable

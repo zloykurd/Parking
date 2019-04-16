@@ -8,4 +8,5 @@ public class Constants {
   public static final int DEFAULT_PAY = 1000 * 60 * 1;// 1 minuts
   public static final int MAIN_CONTAINER = R.id.main_container;
   public static final String WEITING_SERVICE ="WaitingService";
+  public static final String LOCATION_UPDATE ="location_update";
 }
