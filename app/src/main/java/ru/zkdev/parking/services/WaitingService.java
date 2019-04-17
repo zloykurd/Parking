@@ -190,7 +190,7 @@ public class WaitingService extends Service {
     return formatedDate;
   }
 
-  private boolean checkPolygon(Location location) {
+  public boolean checkPolygon(Location location) {
     Log.d(TAG, "checkPolygon: ");
     if (location == null || poinPolygon == null) return false;
 

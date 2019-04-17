@@ -51,7 +51,6 @@ public class LocationService extends Service implements LocationListener {
   public LocationService() {
   }
 
-
   private void startService() {
     Log.d(TAG, "startService: ");
     getLocation();
@@ -240,6 +239,11 @@ public class LocationService extends Service implements LocationListener {
     return this.canGetLocation;
   }
 
+
+  public LocationManager getLocationManager() {
+    return locationManager;
+  }
+
   /**
    * Function to show settings alert dialog
    * On pressing Settings button will lauch Settings Options
@@ -257,11 +261,30 @@ public class LocationService extends Service implements LocationListener {
     alertDialog.show();
   }
 
+  public void setLocationManager(LocationManager locManager) {
+    this.locationManager = locManager;
+    locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
+  }
+
   @Override
   public void onDestroy() {
     super.onDestroy();
     if (locationManager != null) {
       locationManager.removeUpdates(this);
     }
+  }
+
+
+  public Location getLastLocation() {
+
+    for (String providerName : locationManager.getProviders(true)) {
+      @SuppressLint("MissingPermission")
+      Location location = locationManager.getLastKnownLocation(providerName);
+      if (location !=  null) {
+        return location;
+      }
+    }
+
+    return null;
   }
 }
