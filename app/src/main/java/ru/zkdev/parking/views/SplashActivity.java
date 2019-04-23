@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import ru.zkdev.parking.R;
 import ru.zkdev.parking.databinding.ActivitySplashBinding;
-import ru.zkdev.parking.models.Parking;
 import ru.zkdev.parking.repositories.ParkingRepository;
 
 public class SplashActivity extends AppCompatActivity {
@@ -25,11 +24,8 @@ public class SplashActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(LAYOUT);
     binding = DataBindingUtil.setContentView(this, LAYOUT);
-    ParkingRepository repository =  ParkingRepository.getInstance();
+    ParkingRepository repository = ParkingRepository.getInstance();
     repository.setMoqData();
-
-
-
   }
 
   @Override
@@ -41,8 +37,11 @@ public class SplashActivity extends AppCompatActivity {
 
   private void onNextPage() {
     Log.d(TAG, "onNextPage: ");
-    new Handler().postDelayed(() -> startActivity(
-        new Intent(this, MainActivity.class)),
+    new Handler().postDelayed(() -> {
+          startActivity(
+              new Intent(this, MainActivity.class));
+          finish();
+        },
         3000);
   }
 

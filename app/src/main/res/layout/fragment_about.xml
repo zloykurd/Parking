@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context=".views.AboutFragment">
+
+  <data>
+    <variable name="item"
+      type="ru.zkdev.parking.viewModels.AboutVM"/>
+  </data>
+
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:orientation="horizontal">
+
+      <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/ic_local_parking_blue_24dp" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start|center"
+        android:gravity="start|center"
+        android:orientation="vertical">
+
+
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/info_name" />
+
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/info_version" />
+
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/info_department" />
+
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="10dp"
+      android:text="@string/info_description" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="start|center"
+      android:orientation="horizontal">
+
+      <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/info_email_title"
+        android:textColor="@color/txt_black" />
+
+      <TextView
+        android:id="@+id/tv_email_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:onClick="@{item::onSendClick}"
+        android:text="@string/info_email"
+        android:textColor="@color/txt_primary" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/info_phone_title"
+        android:textColor="@color/txt_black" />
+
+      <TextView
+        android:id="@+id/tv_phone_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:onClick="@{item::onCallClick}"
+        android:text="@string/info_phone"
+        android:textColor="@color/txt_primary" />
+    </LinearLayout>
+
+  </LinearLayout>
+
+</layout>

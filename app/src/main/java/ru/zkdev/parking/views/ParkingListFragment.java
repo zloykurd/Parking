@@ -3,15 +3,18 @@ package ru.zkdev.parking.views;
 
 import android.content.Context;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -20,11 +23,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import ru.zkdev.parking.R;
 import ru.zkdev.parking.databinding.FragmentParkingListBinding;
 import ru.zkdev.parking.models.Parking;
@@ -62,8 +60,8 @@ public class ParkingListFragment extends BaseFragment {
     vm = ViewModelProviders.of(getActivity()).get(PolygonVM.class);
     vm.init();
     locationService = new LocationService(getActivity());
-    initToolbar();
     initRecyclerView();
+
     vm.getParkingPlaces().observe(getActivity(), parkings -> {
       Log.d(TAG, "onChanged: ");
       adapter.notifyDataSetChanged();
@@ -71,37 +69,19 @@ public class ParkingListFragment extends BaseFragment {
   }
 
   @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    inflater.inflate(R.menu.menu_on_parking_list, menu);
-    super.onCreateOptionsMenu(menu, inflater);
-  }
-
-  private void initToolbar() {
-    Log.d(TAG, "initToolbar: ");
-    ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbarOnParkingList);
-    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    binding.toolbarOnParkingList.setTitle(getString( isSort? R.string.title_toolbar_search: R.string.title_toolbar_all));
-    binding.toolbarOnParkingList.setNavigationOnClickListener(v -> getActivity().onBackPressed());
-  }
-
-  @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     binding = DataBindingUtil.inflate(inflater, LAYOUT, container, false);
-    setHasOptionsMenu(true);
     return binding.getRoot();
   }
 
+
   @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.menu_history:
-        doFragmentTransaction(HistoryFragment.getInstance(getContext()), "HistoryFragment", true, MAIN_CONTAINER);
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
-    }
+  public void onResume() {
+    super.onResume();
+    Log.d(TAG, "onResume: ");
+    getActivity().setTitle(getString(isSort ? R.string.title_toolbar_search : R.string.title_toolbar_all));
   }
 
   private void initRecyclerView() {

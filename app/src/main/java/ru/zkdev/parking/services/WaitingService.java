@@ -71,8 +71,7 @@ public class WaitingService extends Service {
       random = new Random().nextInt(999999);
       ID = intent.getIntExtra("id", ID);
       poinPolygon = repository.getParkingById(ID);
-      showDefaultNotification();
-
+      //showDefaultNotification();
     }
     return mStartMode;
   }
@@ -95,7 +94,7 @@ public class WaitingService extends Service {
     Notification notification = new NotificationCompat.Builder(this, WEITING_SERVICE)
         .setContentTitle(getString(R.string.app_name))
         .setContentText(poinPolygon.getName() + " Через " + defaultWeitTile + " минут начнется оплата")
-        .setAutoCancel(false)
+        .setAutoCancel(true)
         .setSmallIcon(R.drawable.ic_local_parking_blue_24dp).setContentIntent(pendingIntent).build();
     startForeground(ID, notification);
   }
@@ -180,7 +179,6 @@ public class WaitingService extends Service {
       }
     }
   };
-
 
   private String getDate() {
     String pattern = "dd-MM-yyyy HH:mm";

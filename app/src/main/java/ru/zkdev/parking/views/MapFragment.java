@@ -17,6 +17,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,14 +45,6 @@ import com.google.maps.android.PolyUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.BaseObservable;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
 import ru.zkdev.parking.R;
 import ru.zkdev.parking.databinding.BottomDialogShowInfoBinding;
 import ru.zkdev.parking.databinding.FragmentMapBinding;
@@ -57,7 +58,6 @@ import ru.zkdev.parking.viewModels.PolygonVM;
 
 import static androidx.core.content.PermissionChecker.checkSelfPermission;
 import static ru.zkdev.parking.configs.Constants.LOCATION_UPDATE;
-import static ru.zkdev.parking.configs.Constants.MAIN_CONTAINER;
 import static ru.zkdev.parking.configs.Constants.VERIFY_PERMISSIONS_REQUEST;
 import static ru.zkdev.parking.configs.Permissions.PERMISSIONS;
 
@@ -82,6 +82,11 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
   public MapFragment() {
   }
 
+  /**
+   * @param context
+   * @param latLng
+   * @return
+   */
   public static MapFragment getInstance(Context context, LatLng latLng) {
     MapFragment fragment = new MapFragment();
     fragment.setContext(context);
@@ -98,6 +103,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
 
   }
 
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
@@ -107,6 +113,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
     binding.setHandler(new Handler());
     mapFragment.getMapAsync(this);
     initBottomMenu();
+
     final Intent intent = new Intent(this.getActivity(), LocationService.class);
     getActivity().startService(intent);
     return binding.getRoot();
@@ -115,6 +122,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
   @Override
   public void onResume() {
     super.onResume();
+    Log.d(TAG, "onResume: ");
+    getActivity().setTitle(getString(R.string.title_toolbar_map));
     receiveData();
   }
 
@@ -134,8 +143,9 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
     Log.d(TAG, "updateLocation: ");
     LatLng latLng = new LatLng(locationService.getLocation().getLatitude(),
         locationService.getLocation().getLongitude());
-    if (marker!=null )marker.remove();
+    if (marker != null) marker.remove();
     marker = mMap.addMarker(new MarkerOptions().position(latLng));
+    updateCamera(marker.getPosition());
   }
 
   @Override
@@ -227,9 +237,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
       }
     }
     //endregion
-
     getLocation();
-
   }
 
   public void showDirection(String[] directionList) {
@@ -304,10 +312,22 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
     CameraPosition cameraPosition = new CameraPosition.Builder()
         .target(latLng)
         .zoom(16)
-        .bearing(90)
-        .tilt(30)
+        // .bearing(90)
+        //.tilt(30)
         .build();
 
+    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+  }
+
+  private void updateCamera(LatLng latLng) {
+    Log.d(TAG, "animateCamera: ");
+
+    CameraPosition cameraPosition = new CameraPosition.Builder()
+        .target(latLng)
+        .zoom(16)
+        .build();
+
+    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
   }
 
@@ -405,7 +425,6 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
     vectorDrawable.draw(canvas);
     return BitmapDescriptorFactory.fromBitmap(bitmap);
   }
-
   @Override
   public void onInfoWindowClick(Marker marker) {
     Log.d(TAG, "onInfoWindowClick: ");
@@ -422,16 +441,5 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback,
       getLocation();
     }
 
-    public void getOnParkingListClick(@NonNull View view) {
-      Log.d(TAG, "geMyLocationClick: ");
-      doFragmentTransaction(ParkingListFragment.getInstance(getContext(), false),
-          "ParkingListFragment", true, MAIN_CONTAINER);
-    }
-
-    public void searchPirking(View view) {
-      Log.d(TAG, "searchPirking: ");
-      doFragmentTransaction(ParkingListFragment.getInstance(getContext(), true),
-          "ParkingListFragment", true, MAIN_CONTAINER);
-    }
   }
 }

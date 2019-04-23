@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   tools:context=".views.MainActivity">
 
-  <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/main_container"
+  <androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/main_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
 
-  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+      <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_on_main"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="top"
+
+        app:titleTextColor="@color/txt_white"
+        app:subtitleTextColor="@color/txt_white"
+        android:background="@color/colorPrimary" />
+
+      <RelativeLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp">
+
+      </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+      android:id="@+id/navigation"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="start|left"
+      app:headerLayout="@layout/navigation_header"
+      app:itemTextColor="@color/navigation_item_bg"
+      app:menu="@menu/navigation_menu" />
+  </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>

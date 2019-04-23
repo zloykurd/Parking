@@ -3,6 +3,7 @@ package ru.zkdev.parking.views;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,11 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import ru.zkdev.parking.R;
 import ru.zkdev.parking.databinding.FragmentHistoryBinding;
 import ru.zkdev.parking.services.LocationService;
@@ -50,7 +52,6 @@ public class HistoryFragment extends BaseFragment {
     vm = ViewModelProviders.of(getActivity()).get(HistoryVM.class);
     vm.init();
     locationService = new LocationService(getActivity());
-    initToolbar();
     initRecyclerView();
     vm.getPlaces().observe(getActivity(), parkingHistories -> {
       Log.d(TAG, "onChanged: ");
@@ -58,12 +59,12 @@ public class HistoryFragment extends BaseFragment {
     });
   }
 
-  private void initToolbar() {
-    Log.d(TAG, "initToolbar: ");
-    ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbarOnHistoryList);
-    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    binding.toolbarOnHistoryList.setTitle(getString(R.string.title_toolbar_history));
-    binding.toolbarOnHistoryList.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    Log.d(TAG, "onResume: ");
+   getActivity().setTitle(getString(R.string.title_toolbar_history));
   }
 
   @Override

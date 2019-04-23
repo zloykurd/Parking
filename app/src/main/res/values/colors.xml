@@ -24,7 +24,9 @@
   <color name="line_have_place">#2196F3</color>
   <color name="line_not_place">#F80000</color>
 
-
+<!--states-->
+  <color name="is_checked_false">#2196F3</color>
+  <color name="is_checked_true">#969696</color>
 
 
 </resources>

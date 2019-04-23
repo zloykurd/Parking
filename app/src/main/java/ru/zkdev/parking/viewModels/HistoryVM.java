@@ -18,6 +18,7 @@ public class HistoryVM extends ViewModel {
   }
 
   public void geleteById(int id) {
+    if (id <= 0)return;
     repository.deleteById(id);
   }
 

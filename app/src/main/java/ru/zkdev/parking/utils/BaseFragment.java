@@ -1,13 +1,9 @@
 package ru.zkdev.parking.utils;
 
-import android.util.Log;
-
-import com.google.android.gms.maps.model.LatLng;
-
-import java.text.DecimalFormat;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class BaseFragment extends Fragment {
   private static final String TAG = "BaseFragment";

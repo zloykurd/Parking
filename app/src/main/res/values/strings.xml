@@ -5,8 +5,10 @@
 
   <!--titles-->
   <string name="title_toolbar_all">Все парковки</string>
+  <string name="title_toolbar_map">Карта</string>
   <string name="title_toolbar_search">Свободные парковки</string>
   <string name="title_toolbar_history">История</string>
+  <string name="title_toolbar_about">О приложении</string>
   <string name="title_delete">Удаление </string>
   <string name="title_info">Информация:</string>
   <string name="title_quantity_count">Свободных мест:</string>
@@ -32,4 +34,15 @@
   <string name="nav_header_subtitle">android.studio@android.com</string>
   <string name="nav_header_desc">Navigation header</string>
   <string name="action_settings">Settings</string>
+  <!--info-->
+  <string name="info_name">Парковки Бишкека</string>
+  <string name="info_version">Версия 1.1</string>
+  <string name="info_department">Департамент транспорта</string>
+  <string name="info_description">Приложение Парковки Бишкека, поможет Вам:
+    \n - Припарковаться и оплатить парковку с помощью мобильного телефона
+    \n - Пополнить личный парковочный счёт \n - Найти парковки и паркоматы на карте</string>
+  <string name="info_phone_title">Тел: </string>
+  <string name="info_phone"> +996 505 50 50 33</string>
+  <string name="info_email">radzhoyan@gmail.com</string>
+  <string name="info_email_title">Email: </string>
 </resources>

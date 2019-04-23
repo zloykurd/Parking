@@ -5,17 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <androidx.appcompat.widget.Toolbar
-      android:id="@+id/toolbar_on_history_list"
-      android:layout_width="match_parent"
-      android:layout_height="?actionBarSize" />
-
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recycler_view_on_history_list"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_below="@+id/toolbar_on_history_list" />
+      />
 
   </RelativeLayout>
 
