@@ -29,15 +29,18 @@ android {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
 
     def libraryVersion = '1.0.0'
@@ -84,8 +87,20 @@ dependencies {
     def mockitoVersion = "2.19.0"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "com.google.truth:truth:0.42"
+    def robolectricVersion = "4.2"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation 'androidx.test:core:1.1.0'
+    //testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
+
+    def powermockVersion = "2.0.2"
+    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+    testImplementation "org.powermock:powermock-module-junit4-rule:$powermockVersion"
+    testImplementation "org.powermock:powermock-api-mockito:1.7.4"
+    testImplementation "org.powermock:powermock-classloading-xstream:$powermockVersion"
+    testImplementation 'io.reactivex.rxjava2:rxjava:2.1.5'
     //defaut
-    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
 }

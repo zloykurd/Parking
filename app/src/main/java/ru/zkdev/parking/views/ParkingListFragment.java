@@ -87,8 +87,6 @@ public class ParkingListFragment extends BaseFragment {
   private void initRecyclerView() {
     Log.d(TAG, "initRecyclerView: ");
 
-    ;
-
     adapter = new PolygonListAdapter(getContext(), sortByDistance(vm.getParkingPlaces().getValue()));
     binding.recyclerViewOnParkingList.setLayoutManager(new LinearLayoutManager(getContext()));
     binding.recyclerViewOnParkingList.setHasFixedSize(true);

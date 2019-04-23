@@ -49,7 +49,6 @@ public class WaitingService extends Service {
   private ParkingRepository repository;
   private HistoryRepository history;
 
-
   @Override
   public void onCreate() {
     Log.d(TAG, "onCreate: ");
@@ -144,7 +143,7 @@ public class WaitingService extends Service {
     timer.scheduleAtFixedRate(defaultWeitTile == 0 ? new mainTask() : new defaultTask(), 0, 1000);
   }
 
-  private class mainTask extends TimerTask {
+  public  class mainTask extends TimerTask {
     public void run() {
       total++;
       toastHandler.sendEmptyMessage(total);
@@ -172,7 +171,7 @@ public class WaitingService extends Service {
         } else {
           showDefaultNotification();
         }
-        timer.scheduleAtFixedRate(new mainTask(), DEFAULT_WAIT, DEFAULT_PAY);
+          timer.scheduleAtFixedRate(new mainTask(), DEFAULT_WAIT, DEFAULT_PAY);
       } else {
 
         showComplitedNotification();
